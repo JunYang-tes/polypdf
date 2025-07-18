@@ -1,0 +1,52 @@
+# Dependencies
+/node_modules
+**/node_modules
+
+# Build outputs
+**/dist
+**/build
+/out
+/.next
+/.nuxt
+/build
+/.svelte-kit
+/.vercel
+/coverage
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Caching
+.turbo
+.eslintcache
+*.tsbuildinfo
+.parcel-cache
+
+# Local environment variables
+.env
+.env.local
+.env.*.local
+
+# IDEs and editors
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db

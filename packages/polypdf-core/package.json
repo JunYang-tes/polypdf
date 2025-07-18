@@ -1,0 +1,23 @@
+{
+  "name": "polypdf-core",
+  "version": "0.0.0",
+  "description": "",
+  "license": "MIT",
+  "author": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "dependencies": {
+    "@react-pdf/fns": "3.1.2",
+    "@react-pdf/font": "^4.0.2",
+    "@react-pdf/layout": "^4.4.0",
+    "@react-pdf/pdfkit": "^4.0.3",
+    "@react-pdf/primitives": "^4.1.1",
+    "@react-pdf/reconciler": "^1.1.4",
+    "@react-pdf/render": "^4.3.0",
+    "@react-pdf/types": "^2.9.0"
+  },
+  "packageManager": "pnpm@8.15.9+sha512.499434c9d8fdd1a2794ebf4552b3b25c0a633abcee5bb15e7b5de90f32f47b513aca98cd5cfd001c31f0db454bc3804edccd578501e4ca293a6816166bbd9f81",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
