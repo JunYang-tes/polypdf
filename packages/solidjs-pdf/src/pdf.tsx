@@ -1,13 +1,14 @@
-import {
-  type Node,
-  type Bookmark,
-  type Orientation,
-  type PageLayout,
-  type PageMode,
-  type PageSize,
-  type PDFVersion,
-  type Style,
-  type SourceObject,
+import type {
+  Node,
+  Bookmark,
+  Orientation,
+  PageLayout,
+  PageMode,
+  PageSize,
+  PDFVersion,
+  Style,
+  SourceObject,
+  SVGPresentationAttributes,
 } from '@react-pdf/types'
 import {
   createMemo,
@@ -153,7 +154,7 @@ export function View(props: ParentProps<ViewProps>) {
   )
 }
 
-function createParentComp<P extends { style?: Style | Style[] }>(type: string) {
+function createParentComp<P extends { style?: any }>(type: string) {
   return function P(props: ParentProps<P>) {
     const [local, others] = splitProps(props, ['children', 'style'])
     const id = `page-${seqId()}`
@@ -194,7 +195,7 @@ function createParentComp<P extends { style?: Style | Style[] }>(type: string) {
   }
 }
 
-function createLeafComp<P extends { style?: Style | Style[] }>(type: string) {
+function createLeafComp<P extends { style?: any }>(type: string) {
   return function P(props: P) {
     const [local, others] = splitProps(props, ['style'])
     const id = `page-${seqId()}`
@@ -393,3 +394,130 @@ export const Image = createLeafComp<ImageProps>('IMAGE')
 export const Link = createLeafComp('LINK')
 export const Note = createLeafComp('NOTE')
 export const Canvas = createLeafComp('CANVAS')
+
+export interface SVGProps extends NodeProps, SVGPresentationAttributes {
+  /**
+   * Enables debug mode on page bounding box.
+   * @see https://react-pdf.org/advanced#debugging
+   */
+  debug?: boolean
+  width?: string | number
+  height?: string | number
+  viewBox?: string
+  preserveAspectRatio?: string
+}
+
+export const Svg = createParentComp<SVGProps>('SVG')
+
+export interface LineProps extends SVGPresentationAttributes {
+  style?: SVGPresentationAttributes
+  x1: string | number
+  x2: string | number
+  y1: string | number
+  y2: string | number
+}
+export const Line = createLeafComp<LineProps>('LINE')
+
+export interface PolylineProps extends SVGPresentationAttributes {
+  style?: SVGPresentationAttributes
+  points: string
+}
+export const Polyline = createLeafComp<PolylineProps>('POLYLINE')
+export interface PolygonProps extends SVGPresentationAttributes {
+  style?: SVGPresentationAttributes
+  points: string
+}
+export const Polygon = createLeafComp<PolygonProps>('POLYGON')
+
+export interface PathProps extends SVGPresentationAttributes {
+  style?: SVGPresentationAttributes
+  d: string
+}
+export const Path = createLeafComp<PathProps>('PATH')
+
+export interface RectProps extends SVGPresentationAttributes {
+  style?: SVGPresentationAttributes
+  x?: string | number
+  y?: string | number
+  width: string | number
+  height: string | number
+  rx?: string | number
+  ry?: string | number
+}
+export const Rect = createLeafComp<RectProps>('RECT')
+
+export interface CircleProps extends SVGPresentationAttributes {
+  style?: SVGPresentationAttributes
+  cx?: string | number
+  cy?: string | number
+  r: string | number
+}
+export const Circle = createLeafComp<CircleProps>('CIRCLE')
+
+export interface EllipseProps extends SVGPresentationAttributes {
+  style?: SVGPresentationAttributes
+  cx?: string | number
+  cy?: string | number
+  rx: string | number
+  ry: string | number
+}
+export const Ellipse = createLeafComp<EllipseProps>('ELLIPSE')
+
+export interface TspanProps extends SVGPresentationAttributes {
+  style?: never
+  x?: string | number
+  y?: string | number
+}
+export const Tspan = createParentComp<TspanProps>('TSPAN')
+
+export interface GProps extends SVGPresentationAttributes {
+  style?: Style
+}
+export const G = createParentComp<GProps>('G')
+
+export interface StopProps {
+  style?: never
+  offset: string | number
+  stopColor: string
+  stopOpacity?: string | number
+}
+export const Stop = createLeafComp<StopProps>('STOP')
+
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
+export interface DefsProps {}
+export const Defs = createParentComp<DefsProps>('DEFS')
+
+export interface ClipPathProps {
+  style?: never
+  id?: string
+}
+export const ClipPath = createParentComp<ClipPathProps>('CLIP_PATH')
+
+export interface LinearGradientProps {
+  style?: never
+  id: string
+  x1?: string | number
+  x2?: string | number
+  y1?: string | number
+  y2?: string | number
+  xlinkHref?: string
+  gradientTransform?: string
+  gradientUnits?: 'userSpaceOnUse' | 'objectBoundingBox'
+}
+export const LinearGradient =
+  createParentComp<LinearGradientProps>('LINEAR_GRADIENT')
+
+export interface RadialGradientProps {
+  style?: never
+  id: string
+  cx?: string | number
+  cy?: string | number
+  r?: string | number
+  fx?: string | number
+  fy?: string | number
+  xlinkHref?: string
+  gradientTransform?: string
+  gradientUnits?: 'userSpaceOnUse' | 'objectBoundingBox'
+}
+export const RadialGradient =
+  createParentComp<RadialGradientProps>('RADIAL_GRADIENT')
