@@ -23,6 +23,7 @@
   "main": "./dist/solidjs-pdf.umd.js",
   "module": "./dist/solidjs-pdf.es.js",
   "types": "./dist/index.d.ts",
+  "files": ["dist"],
   "exports": {
     ".": {
       "import": "./dist/solidjs-pdf.es.js",
