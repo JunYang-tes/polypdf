@@ -6,6 +6,7 @@ import { PDFViewer } from './PDFViewer'
 import {
   Document,
   Page,
+  View,
   Text,
   Image,
   Svg,
@@ -28,26 +29,6 @@ function App() {
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} class="logo" alt="Vite logo" />
-        </a>
-        <a href="https://solidjs.com" target="_blank">
-          <img src={solidLogo} class="logo solid" alt="Solid logo" />
-        </a>
-      </div>
-      <h1>Vite + Solid</h1>
-      <div class="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count()}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p class="read-the-docs">
-        Click on the Vite and Solid logos to learn more
-      </p>
       <PDFViewer>
         <Document>
           <Page>
@@ -94,6 +75,42 @@ function App() {
                 clipPath="url(#myClip)"
               />
             </Svg>
+          </Page>
+          <Page>
+            <View
+              render={(props) => {
+                return <Text>{props.pageNumber}</Text>
+              }}
+            />
+            <Text>Hello</Text>
+            <Text
+              render={(props) => {
+                return (
+                  <Text>
+                    {props.pageNumber}/{props.subPageNumber}/{props.totalPages}/
+                    {props.subPageTotalPages}
+                  </Text>
+                )
+              }}
+            />
+          </Page>
+          <Page>
+            <View
+              render={(props) => {
+                return <Text>{props.pageNumber}</Text>
+              }}
+            />
+            <Text>Hello</Text>
+            <Text
+              render={(props) => {
+                return (
+                  <Text>
+                    {props.pageNumber}/{props.subPageNumber}/{props.totalPages}/
+                    {props.subPageTotalPages}
+                  </Text>
+                )
+              }}
+            />
           </Page>
         </Document>
       </PDFViewer>

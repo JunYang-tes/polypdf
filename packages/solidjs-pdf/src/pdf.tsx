@@ -19,7 +19,9 @@ import {
   splitProps,
   children,
   onCleanup,
+  batch,
 } from 'solid-js'
+import { createStore } from 'solid-js/store'
 import { props } from 'polypdf-core'
 const { setProps, removeProps } = props
 
@@ -80,88 +82,31 @@ export interface ViewProps extends NodeProps {
   debug?: boolean
   render?: (props: { pageNumber: number; subPageNumber: number }) => JSX.Element
 }
-
-export function View(props: ParentProps<ViewProps>) {
-  const id = `view-${seqId()}`
-  const [pageInfo, setPageInfo] = createSignal({
-    pageNumber: 0,
-    subPageNumber: 0,
-  })
-  const [local, others] = splitProps(props, ['children', 'style', 'render'])
-
-  const collectPage = (props: {
-    pageNumber: number
-    subPageNumber: number
-  }) => {
-    setPageInfo((curr) => {
-      if (
-        curr.pageNumber !== props.pageNumber ||
-        (props.subPageNumber != null &&
-          curr.subPageNumber !== props.subPageNumber)
-      ) {
-        return {
-          pageNumber: props.pageNumber,
-          subPageNumber: props.subPageNumber,
-        }
-      } else {
-        return curr
-      }
-    })
-  }
-  let counter = 0
-  const update = createMemo(() => {
-    const s = local.style || {}
-    setProps(`${id}-style`, s)
-    if (local.render) {
-      setProps(`${id}-render`, collectPage)
-    }
-    const p = Object.fromEntries(
-      Object.keys(others)
-        //@ts-ignore
-        .map((k) => [k, others[k]])
-    )
-    setProps(`${id}-props`, p)
-    return counter++
-  })
-
-  const resolvedChildren = children(() => {
-    if (local.render) {
-      return local.render(pageInfo())
-    }
-    return local.children
-  })
-
-  onCleanup(() => {
-    removeProps(`${id}-style`)
-    removeProps(`${id}-render`)
-    removeProps(`${id}-props`)
-  })
-
-  //@ts-ignore
-  return (
-    <div
-      data-type="VIEW"
-      data-counter={update()}
-      data-render={`${id}-render`}
-      data-props={`${id}-props`}
-      data-style={`${id}-style`}
-    >
-      {
-        //local.children
-        resolvedChildren
-      }
-    </div>
-  )
-}
+export const View = createParentComp<ViewProps>('VIEW')
 
 function createParentComp<P extends { style?: any }>(type: string) {
   return function P(props: ParentProps<P>) {
-    const [local, others] = splitProps(props, ['children', 'style'])
+    const [local, others] = splitProps(props, ['children', 'style', 'render'])
     const id = `page-${seqId()}`
-    const [pageInfo, setPageInfo] = createSignal({
+    const [pageInfo, setPageInfo] = createStore({
       pageNumber: 0,
+      totalPages: 0,
       subPageNumber: 0,
+      subPageTotalPages: 0,
     })
+    const updatePageInfo = (props: {
+      pageNumber: number
+      subPageNumber?: number
+      totalPages?: number
+      subPageTotalPages?: number
+    }) => {
+      batch(() => {
+        setPageInfo('pageNumber', props.pageNumber)
+        setPageInfo('totalPages', props.totalPages || pageInfo.totalPages)
+        setPageInfo('subPageNumber', props.subPageNumber || 0)
+        setPageInfo('subPageTotalPages', props.subPageTotalPages || 0)
+      })
+    }
 
     let _counter = 0
     const counter = createMemo(() => {
@@ -173,12 +118,22 @@ function createParentComp<P extends { style?: any }>(type: string) {
           .map((k) => [k, others[k]])
       )
       setProps(`${id}-props`, p)
+      if (local.render) {
+        setProps(`${id}-render`, updatePageInfo)
+      }
       return _counter
     })
     onCleanup(() => {
       removeProps(`${id}-style`)
       removeProps(`${id}-render`)
       removeProps(`${id}-props`)
+    })
+
+    const resolvedChildren = children(() => {
+      if (local.render) {
+        return local.render(pageInfo)
+      }
+      return local.children
     })
 
     //@ts-ignore
@@ -188,8 +143,9 @@ function createParentComp<P extends { style?: any }>(type: string) {
         data-counter={counter()}
         data-props={`${id}-props`}
         data-style={`${id}-style`}
+        data-render={`${id}-render`}
       >
-        {local.children}
+        {resolvedChildren}
       </div>
     )
   }
@@ -292,84 +248,7 @@ export interface TextProps extends NodeProps {
   widows?: number
 }
 
-export function Text(props: ParentProps<TextProps>) {
-  const id = `text-${seqId()}`
-  const [pageInfo, setPageInfo] = createSignal({
-    pageNumber: 0,
-    totalPages: 0,
-    subPageNumber: 0,
-    subPageTotalPages: 0,
-  })
-  const [local, others] = splitProps(props, ['children', 'style', 'render'])
-
-  const collectPage = (props: {
-    pageNumber: 0
-    totalPages: 0
-    subPageNumber: 0
-    subPageTotalPages: 0
-  }) => {
-    setPageInfo((curr) => {
-      if (
-        curr.pageNumber !== props.pageNumber ||
-        (props.totalPages != null && curr.totalPages !== props.totalPages) ||
-        (props.subPageNumber != null &&
-          curr.subPageNumber !== props.subPageNumber) ||
-        (props.subPageTotalPages != null &&
-          curr.subPageTotalPages !== props.subPageTotalPages)
-      ) {
-        return {
-          ...props,
-        }
-      } else {
-        return curr
-      }
-    })
-  }
-
-  let _counter = 0
-  const counter = createMemo(() => {
-    const s = local.style || {}
-    setProps(`${id}-style`, s)
-    if (local.render) {
-      setProps(`${id}-render`, collectPage)
-    }
-    const p = Object.fromEntries(
-      Object.keys(others)
-        //@ts-ignore
-        .map((k) => [k, others[k]])
-    )
-    setProps(`${id}-props`, p)
-    return _counter++
-  })
-
-  const resolvedChildren = children(() => {
-    if (local.render) {
-      return local.render(pageInfo())
-    }
-    return local.children
-  })
-
-  onCleanup(() => {
-    removeProps(`${id}-style`)
-    removeProps(`${id}-render`)
-    removeProps(`${id}-props`)
-  })
-
-  return (
-    <div
-      data-type="TEXT"
-      data-counter={counter()}
-      data-render={`${id}-render`}
-      data-props={`${id}-props`}
-      data-style={`${id}-style`}
-    >
-      {
-        //@ts-ignore
-        resolvedChildren
-      }
-    </div>
-  )
-}
+export const Text = createParentComp<TextProps>('TEXT')
 
 export interface BaseImageProps extends NodeProps {
   /**
