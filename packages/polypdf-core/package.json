@@ -6,6 +6,7 @@
   "author": "",
   "type": "module",
   "main": "dist/index.js",
+  "types": "lib/types/index.d.ts",
   "dependencies": {
     "@react-pdf/fns": "3.1.2",
     "@react-pdf/font": "^4.0.2",
