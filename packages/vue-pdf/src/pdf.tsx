@@ -1,19 +1,13 @@
 import {
-  computed,
   defineComponent,
-  effect,
   onUnmounted,
   reactive,
   ref,
-  toRaw,
   watchEffect,
-  type DefineSetupFnComponent,
-  type SlotsType,
   type VNode,
 } from 'vue'
 import { props } from 'polypdf-core'
 import type {
-  Node,
   Bookmark,
   Orientation,
   PageLayout,
@@ -54,7 +48,7 @@ function createParentComp<P extends Record<string, any>>(
         const otherProps = Object.fromEntries(
           propsNames
             .map((name) => [name, props[name]])
-            .filter(([name, value]) => value !== undefined)
+            .filter(([_name, value]) => value !== undefined)
         )
         otherProps.debug = props.debug
         setProps(`${id}-props`, otherProps || {})
@@ -99,7 +93,7 @@ function createLeafComp<P extends Record<string, any>>(
         const otherProps = Object.fromEntries(
           propsNames
             .map((name) => [name, props[name]])
-            .filter(([name, value]) => value !== undefined)
+            .filter(([_name, value]) => value !== undefined)
         )
         otherProps.debug = props.debug
         setProps(`${id}-props`, otherProps || {})

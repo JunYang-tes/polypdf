@@ -1,8 +1,20 @@
 {
   "name": "vue-pdf",
-  "private": true,
+  "private": false,
   "version": "0.0.0",
   "type": "module",
+  "main": "./dist/vue-pdf.umd.cjs",
+  "module": "./dist/vue-pdf.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-pdf.js",
+      "require": "./dist/vue-pdf.umd.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc -b && vite build",
@@ -10,7 +22,9 @@
   },
   "dependencies": {
     "@react-pdf/types": "^2.9.0",
-    "polypdf-core": "workspace:*",
+    "polypdf-core": "workspace:*"
+  },
+  "peerDependencies": {
     "vue": "^3.5.13"
   },
   "devDependencies": {
@@ -19,6 +33,7 @@
     "@vue/tsconfig": "^0.7.0",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
+    "vite-plugin-dts": "^3.9.1",
     "vue-tsc": "^2.2.8"
   }
 }

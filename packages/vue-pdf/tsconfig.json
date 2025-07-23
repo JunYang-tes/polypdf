@@ -2,7 +2,6 @@
   "compilerOptions": {
     "jsx":"preserve",
     "jsxFactory": "h",
-    "jsxFragment": "Fragment",
     "types":["vue/jsx"]
   },
   "files": [],

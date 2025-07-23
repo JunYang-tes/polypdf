@@ -1,5 +1,57 @@
-# Vue 3 + TypeScript + Vite
+# Vue PDF Library
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+This is a Vue library for creating PDF documents using a component-based approach, similar to React PDF.
 
-Learn more about the recommended Project Setup and IDE Support in the [Vue Docs TypeScript Guide](https://vuejs.org/guide/typescript/overview.html#project-setup).
+## Installation
+
+```bash
+npm install vue-pdf
+```
+
+## Usage
+
+```vue
+<script setup>
+import { Document, Page, Text, View } from 'vue-pdf'
+</script>
+
+<template>
+  <Document>
+    <Page>
+      <Text>Hello World!</Text>
+    </Page>
+  </Document>
+</template>
+```
+
+## Components
+
+The library exports the following components:
+
+- `Document` - The root component for a PDF document
+- `Page` - Represents a page in the PDF document
+- `View` - A container for other components
+- `Text` - For displaying text
+- `Image` - For displaying images
+- `Link` - For creating hyperlinks
+- `Note` - For adding notes to the PDF
+- `Svg` - Container for SVG elements
+- `Rect`, `Circle`, `Line`, `Path`, `G`, `LinearGradient`, `Stop`, `Defs` - SVG elements
+- `PDFViewer` - Component for previewing the PDF in the browser
+- `BlobProvider` - Component for getting the PDF as a blob
+
+## Development
+
+To build the library:
+
+```bash
+cd packages/vue-pdf
+npm run build
+```
+
+To run the example:
+
+```bash
+cd examples/vue
+npm run dev
+```

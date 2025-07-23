@@ -49,6 +49,34 @@ importers:
         specifier: ^2.11.6
         version: 2.11.7(solid-js@1.9.7)(vite@6.3.5)
 
+  examples/vue:
+    dependencies:
+      vue:
+        specifier: ^3.5.13
+        version: 3.5.17(typescript@5.8.3)
+      vue-pdf:
+        specifier: workspace:*
+        version: link:../../packages/vue-pdf
+    devDependencies:
+      '@vitejs/plugin-vue':
+        specifier: ^5.2.3
+        version: 5.2.4(vite@6.3.5)(vue@3.5.17)
+      '@vitejs/plugin-vue-jsx':
+        specifier: ^5.0.1
+        version: 5.0.1(vite@6.3.5)(vue@3.5.17)
+      '@vue/tsconfig':
+        specifier: ^0.7.0
+        version: 0.7.0(typescript@5.8.3)(vue@3.5.17)
+      typescript:
+        specifier: ~5.8.3
+        version: 5.8.3
+      vite:
+        specifier: ^6.3.5
+        version: 6.3.5
+      vue-tsc:
+        specifier: ^2.2.8
+        version: 2.2.12(typescript@5.8.3)
+
   packages/polypdf-core:
     dependencies:
       '@react-pdf/fns':
@@ -132,6 +160,9 @@ importers:
       vite:
         specifier: ^6.3.5
         version: 6.3.5
+      vite-plugin-dts:
+        specifier: ^3.9.1
+        version: 3.9.1(typescript@5.8.3)(vite@6.3.5)
       vue-tsc:
         specifier: ^2.2.8
         version: 2.2.12(typescript@5.8.3)
@@ -2892,6 +2923,31 @@ packages:
       string_decoder: 1.3.0
       util-deprecate: 1.0.2
     dev: false
+
+  /vite-plugin-dts@3.9.1(typescript@5.8.3)(vite@6.3.5):
+    resolution: {integrity: sha512-rVp2KM9Ue22NGWB8dNtWEr+KekN3rIgz1tWD050QnRGlriUCmaDwa7qA5zDEjbXg5lAXhYMSBJtx3q3hQIJZSg==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      typescript: '*'
+      vite: '*'
+    peerDependenciesMeta:
+      vite:
+        optional: true
+    dependencies:
+      '@microsoft/api-extractor': 7.43.0
+      '@rollup/pluginutils': 5.2.0
+      '@vue/language-core': 1.8.27(typescript@5.8.3)
+      debug: 4.4.1
+      kolorist: 1.8.0
+      magic-string: 0.30.17
+      typescript: 5.8.3
+      vite: 6.3.5
+      vue-tsc: 1.8.27(typescript@5.8.3)
+    transitivePeerDependencies:
+      - '@types/node'
+      - rollup
+      - supports-color
+    dev: true
 
   /vite-plugin-dts@3.9.1(typescript@5.8.3)(vite@7.0.5):
     resolution: {integrity: sha512-rVp2KM9Ue22NGWB8dNtWEr+KekN3rIgz1tWD050QnRGlriUCmaDwa7qA5zDEjbXg5lAXhYMSBJtx3q3hQIJZSg==}

@@ -4,14 +4,14 @@ import { generatePdf } from 'polypdf-core'
 export const PDFViewer = defineComponent({
   name: 'PDFViewer',
   props: {},
-  setup(props, { slots }) {
-    const containerRef = ref<HTMLDivElement | null>(null)
+  setup(_props, { slots }) {
+    const containerRef = ref<HTMLElement | null>(null)
     const pdfUrl = ref<string | null>(null)
 
     onMounted(() => {
       const doc = containerRef.value?.children?.[0]
       if (doc) {
-        generatePdf(doc, {
+        generatePdf(doc as HTMLElement, {
           onBlob: (blob) => {
             if (pdfUrl.value) {
               URL.revokeObjectURL(pdfUrl.value)
