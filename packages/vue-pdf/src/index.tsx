@@ -16,6 +16,7 @@ import {
   Link,
   Note,
 } from './pdf'
+import { Font } from 'polypdf-core'
 import { PDFViewer } from './PDFViewer'
 
 export {
@@ -36,4 +37,5 @@ export {
   Link,
   Note,
   PDFViewer,
+  Font,
 }

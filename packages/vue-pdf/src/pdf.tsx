@@ -77,6 +77,7 @@ function createParentComp<P extends Record<string, any>>(
     },
     {
       props: [...propsNames, 'style', 'debug'],
+      name: type,
     }
   )
 }
@@ -114,6 +115,7 @@ function createLeafComp<P extends Record<string, any>>(
     },
     {
       props: [...propsNames, 'style', 'debug'],
+      name: type,
     }
   )
 }
