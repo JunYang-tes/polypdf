@@ -1,8 +1,35 @@
 <script setup lang="ts">
 import { Demo } from './components/Demo'
+import {
+  PDFDownloadLink,
+  Document,
+  Page,
+  View,
+  Text,
+} from 'vue-pdf'
+import {defineComponent} from 'vue'
+import {Test} from './Test'
+
+
 </script>
 
 <template>
+  <PDFDownloadLink fileName="hello-world.pdf">
+    <template v-slot:loading>
+        <span>Loading...</span>
+    </template>
+    <template v-slot:doc>
+        <Document>
+          <Page>
+            <Text>Hello World</Text>
+          </Page>
+        </Document>
+    </template>
+    <template v-slot:download>
+      download hello-wolrd.pdf
+    </template>
+  </PDFDownloadLink>
+  
   <Demo />
 </template>
 

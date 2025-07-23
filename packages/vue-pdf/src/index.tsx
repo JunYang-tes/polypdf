@@ -18,6 +18,7 @@ import {
 } from './pdf'
 import { Font } from 'polypdf-core'
 import { PDFViewer } from './PDFViewer'
+import { PDFDownloadLink } from './PDFDownloadLink.tsx'
 
 export {
   Document,
@@ -38,4 +39,5 @@ export {
   Note,
   PDFViewer,
   Font,
+  PDFDownloadLink,
 }
