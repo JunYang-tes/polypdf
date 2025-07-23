@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "jsx":"preserve",
+    "jsxFactory": "h",
+    "jsxFragment": "Fragment",
+    "types":["vue/jsx"]
+  },
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
