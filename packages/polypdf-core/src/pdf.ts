@@ -96,6 +96,9 @@ export function generatePdf(
     if (hooks.onBlob) {
       hooks.onBlob(blob)
     }
+    doc.props?.onRender?.({
+      blob,
+    })
     return out
   }
 
