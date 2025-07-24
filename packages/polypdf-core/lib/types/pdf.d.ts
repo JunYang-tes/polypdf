@@ -10,7 +10,9 @@ export declare const pdf: (document: DocumentNode) => {
 export declare function generatePdf(
   el: HTMLElement,
   hooks: {
+    onStart?: () => void
     onBlob?: (blob: Blob) => void
+    onError?: (error: unknown) => void
   }
 ): {
   dispose(): void

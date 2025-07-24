@@ -84,10 +84,13 @@ export const pdf = (document: DocumentNode) => {
 export function generatePdf(
   el: HTMLElement,
   hooks: {
+    onStart?: () => void
     onBlob?: (blob: Blob) => void
+    onError?: (error: unknown) => void
   }
 ) {
   const gen = async () => {
+    hooks.onStart?.()
     const [doc, out] = toPdfDoc(el)
     const blob = await pdf(doc).toBlob()
     if (hooks.onBlob) {
@@ -98,21 +101,26 @@ export function generatePdf(
 
   const observer = new MutationObserver(async () => {
     observer.disconnect()
-    const isDynamic = (await gen()).isDynamic
-    if (isDynamic) {
-      await gen()
-    }
+    await gen()
+      .then(({ isDynamic }) => {
+        if (isDynamic) {
+          return gen()
+        }
+      })
+      .catch((e) => hooks.onError?.(e))
     observer.observe(el, {
       attributes: true,
       childList: true,
       subtree: true,
     })
   })
-  gen().then(({ isDynamic }) => {
-    if (isDynamic) {
-      gen()
-    }
-  })
+  gen()
+    .then(({ isDynamic }) => {
+      if (isDynamic) {
+        return gen()
+      }
+    })
+    .catch((e) => hooks.onError?.(e))
 
   observer.observe(el, {
     attributes: true,
