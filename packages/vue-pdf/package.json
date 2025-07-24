@@ -1,7 +1,7 @@
 {
   "name": "vuejs-pdf",
   "private": false,
-  "version": "0.0.0",
+  "version": "0.0.2",
   "type": "module",
   "main": "./dist/vue-pdf.umd.cjs",
   "module": "./dist/vue-pdf.js",
@@ -14,6 +14,18 @@
   },
   "files": [
     "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JunYang-tes/polypdf"
+  },
+  "keywords": [
+    "pdf",
+    "vue-pdf",
+    "vuejs-pdf",
+    "pdf creator",
+    "pdf renderer",
+    "react-pdf"
   ],
   "scripts": {
     "dev": "vite",
