@@ -1,54 +1,28 @@
 # Vue PDF Library
 
-This is a Vue library for creating PDF documents using a component-based approach, similar to @react-pdf/renderer.
+This is a Vue library for creating PDF documents using a component-based approach, similar to React PDF.
 
 ## Installation
 
 ```bash
-npm install vuejs-pdf
+npm install vue-pdf
 ```
 
 ## Usage
 
-### PDFViewer
-
 ```vue
 <script setup>
-import { Document, Page, Text, View, PDFViewer } from 'vuejs-pdf'
+import { Document, Page, Text, View } from 'vue-pdf'
 </script>
 
 <template>
-  <PDFViewer>
-    <Document>
-      <Page>
-        <Text>Hello,World</Text>
-      </Page>
-    </Document>
-  </PDFViewer>
+  <Document>
+    <Page>
+      <Text>Hello World!</Text>
+    </Page>
+  </Document>
 </template>
 ```
-
-### PDFDownloadLink
-
-```vue
-<script setup>
-import { Document, Page, Text, View, PDFDownloadLink } from 'vuejs-pdf'
-</script>
-<template>
-  <PDFDownloadLink fileName="hello-world.pdf">
-    <template v-slot:loading>
-        <span>Loading...</span>
-    </template>
-    <template v-slot:doc>
-      <Doc />
-    </template>
-    <template v-slot:download>
-      download hello-wolrd.pdf
-    </template>
-  </PDFDownloadLink>
-</template>
-```
-
 
 ## Components
 
@@ -64,6 +38,19 @@ The library exports the following components:
 - `Svg` - Container for SVG elements
 - `Rect`, `Circle`, `Line`, `Path`, `G`, `LinearGradient`, `Stop`, `Defs` - SVG elements
 - `PDFViewer` - Component for previewing the PDF in the browser
-- `PDFDownloadLink` - Component for downloading the PDF
 
-The props of these components are basically the same as the component props in @react-pdf/renderer. You can refer to [components](https://react-pdf.org/components) and [svg](https://react-pdf.org/svg)
+## Development
+
+To build the library:
+
+```bash
+cd packages/vue-pdf
+npm run build
+```
+
+To run the example:
+
+```bash
+cd examples/vue
+npm run dev
+```
