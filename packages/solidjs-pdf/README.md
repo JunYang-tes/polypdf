@@ -1,28 +1,66 @@
-## Usage
+# SolidJS PDF Library
+
+This is a SolidJS library for creating PDF documents using a component-based approach, similar to @react-pdf/renderer.
+
+## Installation
 
 ```bash
-$ npm install # or pnpm install or yarn install
+npm install solidjs-pdf
 ```
 
-### Learn more on the [Solid Website](https://solidjs.com) and come chat with us on our [Discord](https://discord.com/invite/solidjs)
+## Usage
 
-## Available Scripts
+### PDFViewer
 
-In the project directory, you can run:
+```jsx
+import { Document, Page, Text, View, PDFViewer } from 'solidjs-pdf';
 
-### `npm run dev`
+const App = () => (
+  <PDFViewer style={{ width: '100%', height: '100vh' }}>
+    <Document>
+      <Page>
+        <Text>Hello, World</Text>
+      </Page>
+    </Document>
+  </PDFViewer>
+);
+```
 
-Runs the app in the development mode.<br>
-Open [http://localhost:5173](http://localhost:5173) to view it in the browser.
+### PDFDownloadLink
 
-### `npm run build`
+```jsx
+import { Document, Page, Text, PDFDownloadLink } from 'solidjs-pdf';
 
-Builds the app for production to the `dist` folder.<br>
-It correctly bundles Solid in production mode and optimizes the build for the best performance.
+const MyDoc = () => (
+  <Document>
+    <Page>
+      <Text>Hello, World</Text>
+    </Page>
+  </Document>
+);
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+const App = () => (
+  <PDFDownloadLink document={<MyDoc />} fileName="document.pdf">
+    {({ loading }) => (loading ? 'Loading document...' : 'Download now!')}
+  </PDFDownloadLink>
+);
+```
 
-## Deployment
 
-Learn more about deploying your application with the [documentations](https://vite.dev/guide/static-deploy.html)
+## Components
+
+The library exports the following components:
+
+- `Document` - The root component for a PDF document
+- `Page` - Represents a page in the PDF document
+- `View` - A container for other components
+- `Text` - For displaying text
+- `Image` - For displaying images
+- `Link` - For creating hyperlinks
+- `Note` - For adding notes to the PDF
+- `Svg` - Container for SVG elements
+- `Rect`, `Circle`, `Line`, `Path`, `G`, `LinearGradient`, `Stop`, `Defs` - SVG elements
+- `PDFViewer` - Component for previewing the PDF in the browser
+- `BlobProvider` - Component to get the blob of the PDF
+
+The props of these components are basically the same as the component props in @react-pdf/renderer. You can refer to [components](https://react-pdf.org/components) and [svg](https://react-pdf.org/svg)
