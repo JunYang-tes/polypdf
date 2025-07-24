@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import solid from 'vite-plugin-solid'
 import dts from 'vite-plugin-dts'
+import pkg from './package.json'
 
 export default defineConfig({
   plugins: [solid(), dts({ insertTypesEntry: true })],
@@ -12,7 +13,10 @@ export default defineConfig({
       fileName: (format) => `solidjs-pdf.${format}.js`,
     },
     rollupOptions: {
-      external: ['solid-js'],
+      external: [
+        ...Object.keys(pkg.peerDependencies),
+        ...Object.keys(pkg.dependencies),
+      ],
     },
   },
 })
