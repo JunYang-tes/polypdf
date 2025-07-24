@@ -1,35 +1,58 @@
-import { createSignal, createEffect, onCleanup, children } from 'solid-js'
+import {
+  createSignal,
+  createEffect,
+  onCleanup,
+  children,
+  type JSX,
+} from 'solid-js'
 import { generatePdf } from 'polypdf-core'
 
-export const BlobProvider = (props) => {
+interface BlobProviderProps {
+  document: JSX.Element
+  children: (props: {
+    blob: Blob | null
+    url: string | null
+    loading: boolean
+    error: Error | null
+  }) => JSX.Element
+}
+
+export const BlobProvider = (props: BlobProviderProps) => {
+  let containerRef: HTMLDivElement | undefined
+
   const [blob, setBlob] = createSignal<Blob | null>(null)
   const [url, setUrl] = createSignal<string | null>(null)
   const [loading, setLoading] = createSignal(true)
-  const [error, setError] = createSignal(null)
-
-  const resolvedChildren = children(() => {
-    const u = url()
-    const l = loading()
-    const e = error()
-    return props.children({
-      url: u,
-      loading: l,
-      error: e,
-    })
-  })
+  const [error, setError] = createSignal<Error | null>(null)
 
   createEffect(() => {
+    if (!containerRef) return
+
     setLoading(true)
     setError(null)
-    const doc = props.document as HTMLElement
+
+    const doc = containerRef.firstChild as HTMLElement
+    if (!doc) {
+      console.warn('No document found.')
+      return
+    }
+
     const gen = generatePdf(doc, {
-      onBlob: (blob) => {
-        setBlob(blob)
-        const u = url()
-        if (u) {
-          URL.revokeObjectURL(u)
+      onBlob: (generatedBlob) => {
+        setBlob(generatedBlob)
+        const currentUrl = url()
+        if (currentUrl) {
+          URL.revokeObjectURL(currentUrl)
         }
-        setUrl(URL.createObjectURL(blob))
+        if (generatedBlob) {
+          setUrl(URL.createObjectURL(generatedBlob))
+        } else {
+          setUrl(null)
+        }
+        setLoading(false)
+      },
+      onError: (err) => {
+        setError(err)
         setLoading(false)
       },
     })
@@ -46,5 +69,21 @@ export const BlobProvider = (props) => {
     }
   })
 
-  return resolvedChildren
+  const resolvedChildren = children(() => {
+    return props.children({
+      blob: blob(),
+      url: url(),
+      loading: loading(),
+      error: error(),
+    })
+  })
+
+  return (
+    <>
+      <div ref={containerRef} style="display: none">
+        {props.document}
+      </div>
+      {resolvedChildren}
+    </>
+  )
 }
