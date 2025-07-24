@@ -51,3 +51,4 @@ lerna-debug.log*
 ehthumbs.db
 Thumbs.db
 .npmrc
+packages/polypdf-core/.npmrc
