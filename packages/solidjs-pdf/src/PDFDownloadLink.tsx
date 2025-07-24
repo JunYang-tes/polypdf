@@ -6,7 +6,9 @@ interface PDFDownloadLinkProps {
   document: JSX.Element
   class?: string
   style?: string | JSX.CSSProperties | undefined
-  children?: JSX.Element | ((props: { loading: boolean }) => JSX.Element)
+  children?:
+    | JSX.Element
+    | ((props: { loading: boolean; error: unknown }) => JSX.Element)
 }
 
 export const PDFDownloadLink: Component<PDFDownloadLinkProps> = (props) => {
@@ -19,7 +21,10 @@ export const PDFDownloadLink: Component<PDFDownloadLinkProps> = (props) => {
 
         const renderContent = () => {
           if (typeof props.children === 'function') {
-            return props.children({ loading: loading })
+            return props.children({
+              loading,
+              error,
+            })
           }
           return props.children || 'Download'
         }

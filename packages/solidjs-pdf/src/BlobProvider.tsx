@@ -4,6 +4,7 @@ import {
   onCleanup,
   children,
   type JSX,
+  batch,
 } from 'solid-js'
 import { generatePdf } from 'polypdf-core'
 
@@ -38,22 +39,25 @@ export const BlobProvider = (props: BlobProviderProps) => {
     }
 
     const gen = generatePdf(doc, {
+      onStart: () => {
+        setLoading(true)
+      },
       onBlob: (generatedBlob) => {
-        setBlob(generatedBlob)
         const currentUrl = url()
         if (currentUrl) {
           URL.revokeObjectURL(currentUrl)
         }
-        if (generatedBlob) {
+        batch(() => {
           setUrl(URL.createObjectURL(generatedBlob))
-        } else {
-          setUrl(null)
-        }
-        setLoading(false)
+          setBlob(generatedBlob)
+          setLoading(false)
+        })
       },
       onError: (err) => {
-        setError(err)
-        setLoading(false)
+        batch(() => {
+          setError(err)
+          setLoading(false)
+        })
       },
     })
 
