@@ -1,11 +1,23 @@
 {
   "name": "solidjs-pdf",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "scripts": {
     "build": "vite build"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JunYang-tes/polypdf"
+  },
+  "keywords": [
+    "pdf",
+    "solid-pdf",
+    "solidjs-pdf",
+    "pdf creator",
+    "pdf renderer",
+    "react-pdf"
+  ],
   "dependencies": {
     "polypdf-core": "workspace:*",
     "@react-pdf/types": "^2.9.0"
