@@ -6,7 +6,7 @@ import {
   Page,
   View,
   Text,
-} from 'vue-pdf'
+} from 'vuejs-pdf'
 import {defineComponent} from 'vue'
 
 

@@ -18,7 +18,7 @@ import {
   Link,
   Note,
   Font,
-} from 'vue-pdf'
+} from 'vuejs-pdf'
 import font from '../assets/font.ttf'
 
 const styles = {
