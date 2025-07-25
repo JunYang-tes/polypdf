@@ -13,7 +13,6 @@
     "@react-pdf/layout": "^4.4.0",
     "@react-pdf/pdfkit": "^4.0.3",
     "@react-pdf/primitives": "^4.1.1",
-    "@react-pdf/reconciler": "^1.1.4",
     "@react-pdf/render": "^4.3.0",
     "@react-pdf/types": "^2.9.0"
   },
