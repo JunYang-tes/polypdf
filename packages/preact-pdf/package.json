@@ -1,0 +1,44 @@
+{
+  "name": "preact-pdf",
+  "private": false,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JunYang-tes/polypdf"
+  },
+  "keywords": [
+    "pdf",
+    "preact-pdf",
+    "pdf creator",
+    "pdf renderer",
+    "react-pdf"
+  ],
+  "dependencies": {
+    "polypdf-core": "workspace:*",
+    "@react-pdf/types": "^2.9.0"
+  },
+  "peerDependencies": {
+    "preact": "^10.22.1"
+  },
+  "devDependencies": {
+    "typescript": "~5.8.3",
+    "vite": "^7.0.4",
+    "@preact/preset-vite": "^2.8.2",
+    "vite-plugin-dts": "^3.9.1",
+    "preact": "^10.22.1"
+  },
+  "main": "./dist/preact-pdf.umd.js",
+  "module": "./dist/preact-pdf.es.js",
+  "types": "./dist/index.d.ts",
+  "files": ["dist"],
+  "exports": {
+    ".": {
+      "import": "./dist/preact-pdf.es.js",
+      "require": "./dist/preact-pdf.umd.js"
+    }
+  }
+}
