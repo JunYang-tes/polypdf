@@ -1,11 +1,11 @@
-# SolidJS PDF Library
+# Preact PDF Library
 
-This is a SolidJS library for creating PDF documents using a component-based approach, similar to @react-pdf/renderer.
+This is a Preact library for creating PDF documents using a component-based approach, similar to @react-pdf/renderer.
 
 ## Installation
 
 ```bash
-npm install solidjs-pdf
+npm install preact-pdf
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ npm install solidjs-pdf
 ### PDFViewer
 
 ```jsx
-import { Document, Page, Text, View, PDFViewer } from 'solidjs-pdf';
+import { Document, Page, Text, View, PDFViewer } from 'preact-pdf';
 
 const App = () => (
   <PDFViewer style={{ width: '100%', height: '100vh' }}>
@@ -29,7 +29,7 @@ const App = () => (
 ### PDFDownloadLink
 
 ```jsx
-import { Document, Page, Text, PDFDownloadLink } from 'solidjs-pdf';
+import { Document, Page, Text, PDFDownloadLink } from 'preact-pdf';
 
 const MyDoc = () => (
   <Document>

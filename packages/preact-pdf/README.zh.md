@@ -1,11 +1,11 @@
-# SolidJS PDF 库
+# Preact PDF 库
 
-这是一个 SolidJS 库，用于通过基于组件的方法创建 PDF 文档，类似于 @react-pdf/renderer。
+这是一个 Preact 库，用于通过基于组件的方法创建 PDF 文档，类似于 @react-pdf/renderer。
 
 ## 安装
 
 ```bash
-npm install solidjs-pdf
+npm install preact-pdf
 ```
 
 ## 用法
@@ -13,7 +13,7 @@ npm install solidjs-pdf
 ### PDFViewer
 
 ```jsx
-import { Document, Page, Text, View, PDFViewer } from 'solidjs-pdf';
+import { Document, Page, Text, View, PDFViewer } from 'preact-pdf';
 
 const App = () => (
   <PDFViewer style={{ width: '100%', height: '100vh' }}>
@@ -29,7 +29,7 @@ const App = () => (
 ### PDFDownloadLink
 
 ```jsx
-import { Document, Page, Text, PDFDownloadLink } from 'solidjs-pdf';
+import { Document, Page, Text, PDFDownloadLink } from 'preact-pdf';
 
 const MyDoc = () => (
   <Document>

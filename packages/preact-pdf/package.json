@@ -1,5 +1,5 @@
 {
-  "name": "preact-pdf",
+  "name": "preactjs-pdf",
   "private": false,
   "version": "0.0.1",
   "type": "module",
@@ -13,6 +13,7 @@
   "keywords": [
     "pdf",
     "preact-pdf",
+    "preactjs-pdf",
     "pdf creator",
     "pdf renderer",
     "react-pdf"
