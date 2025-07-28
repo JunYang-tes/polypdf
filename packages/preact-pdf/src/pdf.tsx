@@ -79,17 +79,22 @@ export interface ViewProps extends NodeProps {
 
 export const View = createParentComp<ViewProps>('VIEW')
 
-interface ParentProps<P> {
+type ParentProps<P> = P & {
   children?: ComponentChild
-  style?: any
-  render?: any
+  style?: Style | Style[]
 }
 
-function createParentComp<P extends Record<string, unknown>>(
+function createParentComp<P extends {}>(
   type: string
 ): ComponentFactory<P & ParentProps<P>> {
   return function P(props: P & ParentProps<P>) {
-    const { children, style, render, ...others } = props
+    const { children, style, render, ...others } = props as P &
+      ParentProps<P> & {
+        render?: (props: {
+          pageNumber: number
+          subPageNumber: number
+        }) => VNode<any>
+      }
     const id = `page-${seqId()}`
     const [pageInfo, setPageInfo] = useState({
       pageNumber: 0,
