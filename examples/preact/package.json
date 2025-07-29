@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "preact": "^10.22.1",
-    "preact-pdf":"workspace:*"
+    "preactjs-pdf":"workspace:*"
   },
   "devDependencies": {
     "typescript": "~5.8.3",

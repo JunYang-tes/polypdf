@@ -35,7 +35,7 @@ importers:
       preact:
         specifier: ^10.22.1
         version: 10.26.9
-      preact-pdf:
+      preactjs-pdf:
         specifier: workspace:*
         version: link:../../packages/preact-pdf
     devDependencies:

@@ -22,7 +22,7 @@ import {
   Defs,
   PDFDownloadLink,
   Font,
-} from 'preact-pdf'
+} from 'preactjs-pdf'
 
 const styles = {
   body: {
